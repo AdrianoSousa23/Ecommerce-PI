@@ -1,4 +1,4 @@
-# E-commerce Inimigos do Código
+# PrimeTech Inimigos do Código
 
 ## Descrição
 Este é um projeto de e-commerce desenvolvido como parte do Projeto Integrador (PI) da faculdade de TADS no 4º semestre. O sistema permite o gerenciamento de produtos e usuários, incluindo funcionalidades de cadastro, edição e visualização dos produtos e dos usuarios cadastrados.
