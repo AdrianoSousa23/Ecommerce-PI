@@ -1,120 +1,158 @@
-# PrimeTech Inimigos do Código
+# PrimeTech — E-commerce (Java + Spring Boot)
+
+> Projeto originalmente desenvolvido como Projeto Integrador (PI) da faculdade de
+> TADS, em grupo. Este repositório é um **fork individual**, a partir do qual
+> venho evoluindo o projeto por conta própria: migração de versão do framework,
+> implementação de autenticação/autorização com Spring Security, correção de
+> problemas de arquitetura herdados da versão original, e novas funcionalidades.
+>
+> Repositório original do grupo:
+> [Nunes-Fernando/Ecommerce-PI](https://github.com/Nunes-Fernando/Ecommerce-PI)
 
 ## Descrição
-Este é um projeto de e-commerce desenvolvido como parte do Projeto Integrador (PI) da faculdade de TADS no 4º semestre. O sistema permite o gerenciamento de produtos e usuários, incluindo funcionalidades de cadastro, edição e visualização dos produtos e dos usuarios cadastrados.
+
+Sistema web de e-commerce com gestão de estoque, com dois perfis de acesso
+(**Admin** e **Estoquista**), cada um com permissões diferentes sobre o sistema.
 
 ## Funcionalidades
-- **Cadastro de Produtos**: Adicione novos produtos com nome, preço, quantidade, descrição, imagem e avaliação.
-- **Edição de Produtos**: Edite informações dos produtos já cadastrados.
-- **Visualização de Produtos**: Liste todos os produtos cadastrados com detalhes.
-- **Cadastro de Usuários**: Adicione novos usuários ao sistema.
-- **Edição de Usuários**: Edite informações dos usuários cadastrados.
-- **Visualização de Usuários**: Liste todos os usuários cadastrados com detalhes.
+
+- **Autenticação e autorização** — login via Spring Security, com sessão,
+  senha em hash (BCrypt) e controle de acesso por perfil.
+- **Cadastro de usuários** — com validação de dados e confirmação de senha.
+- **Gestão de usuários** *(restrito a Admin)* — listagem de todos os usuários
+  cadastrados.
+- **Cadastro de produtos** *(Admin ou Estoquista)* — nome, preço, quantidade,
+  descrição, imagem e avaliação.
+- **Edição e exclusão de produtos** *(Admin ou Estoquista)*.
+- **Listagem de produtos** — visualização de todos os produtos cadastrados.
 
 ## Páginas
-### 1. Página Principal da Loja
-![Loja](/Imagens/Loja.png)
-- Tem o botão de **Login** para que seja feito o login na pagina.
-- O botão de **Cadastro** para que seja feito um novo cadastro de usuario.
-- O botão de **Sair** redireciona para a pagina de login.
-- temos os produtos listados, com uma barra de pesquisa que busca um produto pelo nome.
 
-### 2. Página de Cadastro de Usuários
-![Cadastro de Usuários](/Imagens/cadastro-usuarios.png)
-- **Nome do Usuário**: Campo para inserir o nome do usuário.
-- **Email do Usuário**: Campo para inserir o email do usuário.
-- **CPF do Usuário**: Campo para inserir a senha do usuário.
-- **Senha do Usuário**: Campo para inserir a senha do usuário.
-- **Confirmação de senha do Usuário**: Campo para inserir a senha do usuário.
-
-### 3. Página de Login Administrativo.
+### Login
 ![Login](/Imagens/Login.png)
-- **Email do Usuário**: Campo para inserir o email do usuário.
-- **Senha do Usuário**: Campo para inserir o senha do usuário.
 
-### 3. Página Principal do ADM.
-![ADM](/Imagens/adm.png)
-- **Listar Produtos**: Redireciona para a pagina de Listagem dos Produtos, onde pode ser feita e edição ou exclusão de um produto ja cadastrado.
-- **Listar Usuarios**: Redireciona para a pagina de Listagem de usuarios, onde pode ser visualizado os usuarios cadastrados e tambem onde pode ser feita a edição e exlusão dos mesmos.
-- **Cadastrar Produtos**: Redireciona para a pagina de Cadastro dos produtos.
+### Cadastro de Usuário
+![Cadastro de Usuários](/Imagens/cadastro-usuarios.png)
 
-### 4. Página de Listagem de Produtos
+### Menu Principal
+![Menu Principal](/Imagens/adm.png)
+
+### Listagem de Produtos
 ![Listagem de Produtos](/Imagens/Listagem-produtos.png)
-- Exibe todos os produtos cadastrados com opções para editar ou deletar cada produto. Ao clicar em Editar sera redirecionado para uma pagina de edição.
 
-### 5. Página de Edição de Produtos
-![Edição de Produtos](/Imagens/edicao-produtos.png)
-- Permite editar as informações dos produtos já cadastrados.
-
-### 6. Página de Listagem de Usuários
-![Listagem de Usuários](/Imagens/Listagem-usuarios.png)
-- Exibe todos os usuários cadastrados com opções para editar ou deletar cada usuário. Ao clicar em editar caracteristicas, será aberto um modal permitindo a edição do usuario.
-- Ao clicar no botão de **Cadastrar Usúario** séra redirecionado para a pagina de cadastro de usúarios.
-
-### 5. Página de Edição de usúarios
-![Edição de usúarios](/Imagens/edicao-usuarios.png)
-- Permite editar as informações dos usúarios já cadastrados.
-
-### 7. Página de Cadastro de Produtos
+### Cadastro e Edição de Produto
 ![Cadastro de Produtos](/Imagens/cadastro-produtos.png)
-- **Nome do Produto**: Campo para inserir o nome do produto.
-- **Preço do Produto (R$)**: Campo para inserir o preço do produto.
-- **Quantidade**: Campo para inserir a quantidade disponível do produto.
-- **Descrição do Produto**: Campo para inserir uma descrição do produto.
-- **Imagem do Produto**: Campo para upload de uma imagem do produto.
-- **Avaliação do Produto**: Campo para selecionar a avaliação do produto.
+> A mesma tela é reaproveitada tanto para cadastrar quanto para editar um
+> produto existente.
 
-## Tecnologias Utilizadas
-- **Java 21**: Linguagem de programação utilizada para desenvolver a lógica do aplicativo.
-- **Spring Boot 2.6.3**: Framework utilizado para simplificar o desenvolvimento e a configuração da aplicação.
-- **Thymeleaf**: Motor de templates utilizado para renderizar as páginas HTML.
-- **Spring Boot JPA** Para Conexão com o banco de dados MySql.
-- **MySQL**: Banco de dados utilizado para armazenar os dados do aplicativo.
-- **Hibernate**: Framework de mapeamento objeto-relacional utilizado para gerenciar o banco de dados.
-- **Bootstrap**: Framework de CSS utilizado para estilizar as páginas HTML.
+### Listagem de Usuários
+![Listagem de Usuários](/Imagens/Listagem-usuarios.png)
 
-## Configuração do Banco de Dados
-O arquivo `application.properties` contém a configuração do banco de dados MySQL:
+## Perfis de acesso
+
+| Rota | Quem acessa |
+|---|---|
+| `/login`, `/cadastrar-usuarios` | Público |
+| `/principal` | Qualquer usuário autenticado |
+| `/lista-usuarios` | Apenas **Admin** |
+| `/lista-produtos`, `/cadastrar-produtos`, `/editar-produto/{id}`, `/deletar-produto/{id}` | **Admin** ou **Estoquista** |
+
+## Tecnologias utilizadas
+
+- **Java 17**
+- **Spring Boot 3**
+- **Spring Security** — autenticação baseada em sessão, `UserDetailsService`
+  customizado, senha com `BCryptPasswordEncoder`, autorização declarativa por
+  rota.
+- **Spring Data JPA / Hibernate** — persistência e mapeamento objeto-relacional.
+- **Bean Validation** — validação de formulários (`@NotBlank`, `@Email`,
+  `@Positive`, etc.).
+- **Thymeleaf** — renderização das páginas HTML no servidor.
+- **MySQL** — banco de dados relacional.
+- **Lombok** — redução de código repetitivo (getters/setters/construtores).
+- **Maven** — gerenciamento de dependências e build.
+
+## Configuração do banco de dados
+
+O arquivo `src/main/resources/application.properties` contém a configuração de
+conexão:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3307/consulta
+spring.datasource.url=jdbc:mysql://localhost:3306/consulta
 spring.datasource.username=root
-spring.datasource.password=1234
+spring.datasource.password=root
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
 
 server.port=9090
 
 spring.thymeleaf.prefix=classpath:/templates/
 spring.thymeleaf.suffix=.html
-
 ```
 
-## Como Executar o Projeto
-### 1. Clone o repositório do GitHub:
-   ```sh
-  git clone https://github.com/AdrianoSousa23/Ecommerce-PI.git
- ```
-### 2. Navegue até o diretório do projeto:
-   ```sh
-cd Ecommerce-PI
- ```
-### 3. Configure o banco de dados MySQL conforme especificado no arquivo 
-`application.properties`.
+Ajuste `username`/`password` conforme seu ambiente local. É necessário ter um
+servidor **MySQL** rodando — o schema (`consulta`, no exemplo acima) precisa
+existir antes de subir a aplicação:
 
-### 4.Execute o projeto utilizando o Maven:
-   ```sh
+```sql
+CREATE DATABASE consulta;
+```
+
+As tabelas são criadas automaticamente pelo Hibernate (`ddl-auto=update`) na
+primeira execução.
+
+## Como executar o projeto
+
+**1. Clone o repositório:**
+```sh
+git clone https://github.com/AdrianoSousa23/PrimeTech.git
+cd PrimeTech
+```
+
+**2. Configure o MySQL** conforme a seção acima.
+
+**3. Execute com Maven:**
+```sh
 mvn spring-boot:run
- ```
-Ou indo no arquivo `EcommerceInimigosCodigoApplication` é executando pela propria IDE.
+```
+Ou execute a classe `EcommerceInimigosCodigoApplication` diretamente pela IDE.
 
-### 5.Acesse o aplicativo no seu navegador:
-   ```sh
-http://localhost:9090
- ```
+**4. Acesse no navegador:**
+```
+http://localhost:9090/login
+```
 
+## Histórico e evolução do projeto
 
+Este projeto começou como entrega acadêmica em grupo. A partir do fork, as
+principais evoluções feitas individualmente foram:
 
+- Migração de Spring Boot 2 → 3 (namespace `javax.*` → `jakarta.*`, dialects do
+  Hibernate 6).
+- Remoção de um caminho de persistência legado via JDBC puro que coexistia com
+  a camada JPA (e que, inclusive, gravava em uma tabela diferente da usada pela
+  entidade JPA — inconsistência corrigida).
+- Implementação de Spring Security do zero: `UserDetailsService` customizado,
+  `PasswordEncoder` (BCrypt), autorização por perfil via `SecurityFilterChain`.
+- Introdução de um enum de perfis (`UserRole`) no lugar de comparação de string
+  solta.
+- Implementação completa do CRUD de produtos (não existia antes — só um
+  controller incompleto e mockups de design).
+- Correções de bugs de front-end (referências de CSS quebradas, rotas
+  incorretas).
 
+## Melhorias futuras (não implementadas ainda)
+
+- **Vitrine pública de produtos** — hoje o sistema é um painel interno
+  (autenticado), sem uma página inicial de loja com listagem/busca de produtos
+  para um visitante não logado.
+- **Edição de usuário** — a listagem de usuários ainda não tem uma tela/endpoint
+  de edição funcional.
+- Restringir o cadastro público de usuários para nunca permitir escolher o
+  perfil Admin livremente.
+- Reativar proteção CSRF (hoje desabilitada para simplificar o desenvolvimento).
+- Upload real de imagem de produto (hoje é um campo de texto livre).
+- Paginação nas listagens.
+- Autenticação via JWT, caso o front-end venha a ser desacoplado (SPA) no
+  futuro.
