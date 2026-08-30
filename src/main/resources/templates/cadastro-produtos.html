@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produto</title>
+    <link rel="stylesheet" th:href="@{/cadastrar-usuario.css}">
+</head>
+<body>
+<div class="main-login">
+    <div class="right-login">
+        <div class="card-login">
+            <h1 th:text="${produtoId} != null ? 'Editar Produto' : 'Cadastrar Produto'">Cadastrar Produto</h1>
+
+            <form th:action="${produtoId} != null ? @{/editar-produto/{id}(id=${produtoId})} : @{/salvar-produto}"
+                  th:object="${produtoForm}" method="post">
+
+                <div class="text-field">
+                    <label for="nome">Nome do Produto:</label>
+                    <input type="text" id="nome" th:field="*{nome}">
+                    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color:red"></span>
+                </div>
+
+                <div class="text-field">
+                    <label for="preco">Preço do Produto (R$):</label>
+                    <input type="number" step="0.01" id="preco" th:field="*{preco}">
+                    <span th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" style="color:red"></span>
+                </div>
+
+                <div class="text-field">
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="number" id="quantidade" th:field="*{quantidade}">
+                </div>
+
+                <div class="text-field">
+                    <label for="descricao">Descrição do Produto:</label>
+                    <textarea id="descricao" th:field="*{descricao}"></textarea>
+                </div>
+
+                <div class="text-field">
+                    <label for="imagem">Imagem do Produto (nome/URL):</label>
+                    <input type="text" id="imagem" th:field="*{imagem}">
+                </div>
+
+                <div class="text-field">
+                    <label for="avaliacao">Avaliação do Produto:</label>
+                    <select id="avaliacao" th:field="*{avaliacao}">
+                        <option value="5">5 - Excelente</option>
+                        <option value="4">4 - Bom</option>
+                        <option value="3">3 - Regular</option>
+                        <option value="2">2 - Ruim</option>
+                        <option value="1">1 - Péssimo</option>
+                    </select>
+                </div>
+
+                <div class="text-field">
+                    <a href="/lista-produtos" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-login">Cadastrar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

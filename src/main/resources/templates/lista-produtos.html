@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a2e; color: #fff; padding: 20px; }
+        h1 { margin-bottom: 20px; }
+        .btn-cadastrar { display: inline-block; margin-bottom: 20px; padding: 10px 16px; background: #4caf50; color: #fff; text-decoration: none; border-radius: 4px; }
+        .cards { display: flex; flex-wrap: wrap; gap: 16px; }
+        .card { background: #fff; color: #222; border-radius: 8px; padding: 16px; width: 220px; }
+        .card img { max-width: 100%; border-radius: 4px; margin-bottom: 8px; }
+        .card h3 { margin: 4px 0; }
+        .card p { margin: 2px 0; font-size: 14px; }
+        .card-actions { margin-top: 10px; display: flex; gap: 8px; }
+        .btn-editar, .btn-deletar { border: none; padding: 6px 12px; border-radius: 4px; color: #fff; cursor: pointer; }
+        .btn-editar { background: #4caf50; }
+        .btn-deletar { background: #e74c3c; }
+    </style>
+</head>
+<body>
+<h1>Listar Produtos</h1>
+<a href="/cadastrar-produtos" class="btn-cadastrar">Cadastrar Produto</a>
+
+<div class="cards">
+    <div class="card" th:each="produto : ${produtos}">
+        <img th:if="${produto.imagem}" th:src="${produto.imagem}" alt="Imagem do produto">
+        <h3 th:text="${produto.nome}">Nome</h3>
+        <p th:text="'Preço: R$ ' + ${produto.preco}">Preço</p>
+        <p th:text="'Quantidade: ' + ${produto.quantidade}">Quantidade</p>
+        <p th:text="'Avaliação: ' + ${produto.avaliacao}">Avaliação</p>
+        <p th:text="${produto.descricao}">Descrição</p>
+
+        <div class="card-actions">
+            <a th:href="@{/editar-produto/{id}(id=${produto.id})}">
+                <button class="btn-editar">Editar</button>
+            </a>
+            <form th:action="@{/deletar-produto/{id}(id=${produto.id})}" method="post" style="display:inline">
+                <button type="submit" class="btn-deletar">Deletar</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
