@@ -1,16 +1,22 @@
 package com.ecommerce.ecommerceInimigosCodigo.controller;
 
-import java.util.List;
-import java.util.Map;
+import com.ecommerce.ecommerceInimigosCodigo.dto.ListaUsuarioDTO;
+import com.ecommerce.ecommerceInimigosCodigo.service.UsuarioService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ecommerce.connection.Connection;
+import java.util.List;
 
 @Controller
 public class PrincipalController {
+
+    private final UsuarioService usuarioService;
+
+    public PrincipalController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @GetMapping("/principal")
     public String showPrincipalPage() {
@@ -24,9 +30,7 @@ public class PrincipalController {
 
     @GetMapping("/buscar-usuarios")
     @ResponseBody
-    public List<Map<String, Object>> buscarUsuarios() {
-        Connection connection = new Connection();
-        return connection.buscarUsuarios();
+    public List<ListaUsuarioDTO> buscarUsuarios() {
+        return usuarioService.listaUsuarios();
     }
-
 }
